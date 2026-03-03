@@ -17,17 +17,25 @@ class DatabaseSeeder extends Seeder
     {
         // Crear usuario superadministrador inicial
         User::create([
-            'name' => 'Superadmin',
-            'email' => 'admin@museo.acipe.es',
+            'name' => 'Miguel A. Huete',
+            'email' => 'mahuete@acipe.es',
             'password' => bcrypt('password'), // Cambiar esta contraseña después
             'role' => 'superadmin',
         ]);
 
         // Crear un usuario admin de ejemplo
         User::create([
-            'name' => 'Administrador',
-            'email' => 'admin2@museo.acipe.es',
+            'name' => 'Juan Fernandez',
+            'email' => 'jfernandez@psi.ucm.es',
             'password' => bcrypt('password'), // Cambiar esta contraseña después
+            'role' => 'superadmin',
+        ]);
+
+        // Crear un usuario admin de ejemplo
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin2@museo.acipe.es',
+            'password' => bcrypt('ajjsnew213141#'), // Cambiar esta contraseña después
             'role' => 'admin',
         ]);
     }
