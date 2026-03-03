@@ -15,6 +15,11 @@ Route::get('/exposiciones', [MuseoController::class, 'exposiciones'])->name('mus
 Route::get('/salas', [MuseoController::class, 'salas'])->name('museo.salas');
 Route::get('/libros', [MuseoController::class, 'libros'])->name('museo.libros');
 Route::get('/acerca-de', [MuseoController::class, 'acerca'])->name('museo.acerca');
+
+// Rutas legales (cookies, privacidad, etc.)
+Route::view('/cookies/politica', 'cookies.politica')->name('cookies.politica');
+Route::view('/cookies/configurar', 'cookies.configurar')->name('cookies.configurar');
+
 Route::get('/exposicion/{slug}', [MuseoController::class, 'exposicion'])->name('museo.exposicion');
 Route::get('/exposicion/{exposicion_slug}/sala/{sala_slug}', [MuseoController::class, 'sala'])->name('museo.sala');
 Route::get('/libro/{id}', [MuseoController::class, 'libro'])->name('museo.libro');

@@ -11,13 +11,20 @@ class ExposicionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        
         $exposiciones = Exposicion::withCount('salas')
+            ->when($search, function($query, $search) {
+                return $query->where('titulo', 'like', '%' . $search . '%')
+                           ->orWhere('subtitulo', 'like', '%' . $search . '%');
+            })
             ->orderBy('orden')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
-        return view('admin.exposiciones.index', compact('exposiciones'));
+        return view('admin.exposiciones.index', compact('exposiciones', 'search'));
     }
 
     /**

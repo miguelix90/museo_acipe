@@ -13,14 +13,23 @@ class SalaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        
         $salas = Sala::with('exposicion')
             ->withCount('libros')
+            ->when($search, function($query, $search) {
+                return $query->where('titulo', 'like', '%' . $search . '%')
+                           ->orWhereHas('exposicion', function($q) use ($search) {
+                               $q->where('titulo', 'like', '%' . $search . '%');
+                           });
+            })
             ->orderBy('orden')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
-        return view('admin.salas.index', compact('salas'));
+        return view('admin.salas.index', compact('salas', 'search'));
     }
 
     /**

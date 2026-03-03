@@ -10,6 +10,27 @@
     </a>
 </div>
 
+<!-- Buscador -->
+<div class="mb-4">
+    <form method="GET" action="{{ route('admin.salas.index') }}" class="flex gap-2">
+        <div class="flex-1">
+            <input type="text" 
+                   name="search" 
+                   value="{{ $search ?? '' }}" 
+                   placeholder="Buscar por título o exposición..." 
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
+        </div>
+        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg">
+            Buscar
+        </button>
+        @if($search)
+        <a href="{{ route('admin.salas.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg">
+            Limpiar
+        </a>
+        @endif
+    </form>
+</div>
+
 <div class="bg-white rounded-lg shadow overflow-hidden">
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">

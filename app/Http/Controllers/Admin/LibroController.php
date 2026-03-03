@@ -11,13 +11,20 @@ class LibroController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+        
         $libros = Libro::withCount('salas')
+            ->when($search, function($query, $search) {
+                return $query->where('titulo', 'like', '%' . $search . '%')
+                           ->orWhere('autor', 'like', '%' . $search . '%');
+            })
             ->orderBy('titulo')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
-        return view('admin.libros.index', compact('libros'));
+        return view('admin.libros.index', compact('libros', 'search'));
     }
 
     /**
